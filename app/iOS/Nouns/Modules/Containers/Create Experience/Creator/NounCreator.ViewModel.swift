@@ -309,7 +309,7 @@ extension NounCreator {
     /// Randomizes the noun
     func randomizeNoun() {
       self.initialSeed = AppCore.shared.nounComposer.randomSeed()
-      self.seed = AppCore.shared.nounComposer.randomSeed()
+      self.seed = .madhappy1
     }
     
     /// Shows all traits on the `SlotMachine`, instead of just the currently modifiable trait type

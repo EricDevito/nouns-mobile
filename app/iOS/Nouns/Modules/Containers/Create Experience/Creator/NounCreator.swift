@@ -31,7 +31,7 @@ struct NounCreator: View {
         .ignoresSafeArea(.all)
         
       VStack(spacing: 0) {
-        ConditionalSpacer(viewModel.mode == .creating)
+        Spacer()
         
         SlotMachine(
           seed: $viewModel.seed,
@@ -40,20 +40,15 @@ struct NounCreator: View {
           currentModifiableTraitType: $viewModel.currentModifiableTraitType
         )
         
-        ConditionalSpacer(!viewModel.isExpanded || viewModel.mode != .creating)
-        
-        if !viewModel.isExpanded {
-          Group {
-            CreateCoachmarks(viewModel: viewModel)
-            ConditionalSpacer(!viewModel.isExpanded || viewModel.mode != .creating)
-          }
-        }
+        Spacer()
         
         if viewModel.mode != .done {
           TraitTypePicker(
             viewModel: viewModel,
             animation: nsTraitPicker
           )
+        } else {
+          Spacer(minLength: 150.0)
         }
       }
       .modifier(AccessoryItems(viewModel: viewModel, done: {
@@ -89,13 +84,14 @@ struct NounCreator: View {
       case .done:
         // Sheet presented when the user is finished creating their
         // noun and is ready to name/save their noun
-        bottomSheetManager.showBottomSheet(
-          style: .init(showDimmingView: false)
-        ) {
-          viewModel.mode = .creating
-        } content: {
-          NounMetadataDialog(viewModel: viewModel)
-        }
+        bottomSheetManager.closeBottomSheet()
+//        bottomSheetManager.showBottomSheet(
+//          style: .init(showDimmingView: false)
+//        ) {
+//          viewModel.mode = .creating
+//        } content: {
+//          NounMetadataDialog(viewModel: viewModel)
+//        }
       case .cancel:
         // Sheet presented when the user wants to cancel the noun
         // creation process
@@ -113,12 +109,22 @@ struct NounCreator: View {
 
       viewModel.showAllTraits()
 
-      withAnimation(.spring(response: 2.0, dampingFraction: 1.0, blendDuration: 1.0)) {
+      let response = 1.5
+      let delay = response + 1.0
+      let finish = Int((delay + 2.0) * 1000)
+
+      withAnimation(.spring(response: response, dampingFraction: 1.0, blendDuration: 1.0)) {
         viewModel.randomizeNoun()
       }
       
-      withAnimation(.spring().delay(3.0)) {
+      withAnimation(.spring().delay(delay)) {
         viewModel.hideAllTraits()
+      }
+
+      DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(finish)) {
+        withAnimation {
+          viewModel.didFinish()
+        }
       }
     }
     .onAppear {

@@ -36,6 +36,7 @@ extension NounCreator {
           SoftButton(
             icon: { Image.xmark },
             action: cancel)
+          .opacity(0.0)
           
         }, rightAccessory: {
           SoftButton(
@@ -45,6 +46,7 @@ extension NounCreator {
             .emptyPlaceholder(when: viewModel.mode == .done) {
               EmptyView()
             }
+            .opacity(0.0)
         })
     }
   }
