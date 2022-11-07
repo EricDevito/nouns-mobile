@@ -121,7 +121,7 @@ public extension Seed {
   static let pizza = Seed(background: 0, glasses: 11, head: 160, body: 13, accessory: 4)
   static let shark = Seed(background: 0, glasses: 3, head: 187, body: 4, accessory: 7)
 
-  static let madhappy1 = Seed(background: 4, glasses: 17, head: 76, body: 6, accessory: 11)
+  static let madhappy1 = Seed(background: 4, glasses: 3, head: 76, body: 6, accessory: 11)
   static let madhappy2 = Seed(background: 6, glasses: 7, head: 184, body: 22, accessory: 31)
   static let madhappy3 = Seed(background: 11, glasses: 14, head: 87, body: 14, accessory: 31)
   static let madhappy4 = Seed(background: 2, glasses: 7, head: 174, body: 2, accessory: 19)
