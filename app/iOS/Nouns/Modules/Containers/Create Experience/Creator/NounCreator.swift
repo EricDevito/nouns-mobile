@@ -111,7 +111,7 @@ struct NounCreator: View {
 
       let response = 1.5
       let delay = response + 1.0
-      let finish = Int((delay + 2.0) * 1000)
+      let finish = Int((delay + 2.25) * 1000)
 
       withAnimation(.spring(response: response, dampingFraction: 1.0, blendDuration: 1.0)) {
         viewModel.randomizeNoun()
